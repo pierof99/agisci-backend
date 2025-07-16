@@ -1,48 +1,44 @@
-# .github/workflows/publish-image.yml
-
 name: Publish Docker Image
 
 on:
-push:
-branches:
-\- main
-paths:
-\- 'Dockerfile'
-\- 'agisci\_scraper.js'
-\- '.env'
+  push:
+    branches:
+      - main
+    paths:
+      - Dockerfile
+      - agisci_scraper.js
+      - .env
 
 jobs:
-build-and-push:
-runs-on: ubuntu-latest
-steps:
-\- name: Checkout repository
-uses: actions/checkout\@v3
+  build-and-push:
+    runs-on: ubuntu-latest
 
-```
-  - name: Set up QEMU
-    uses: docker/setup-qemu-action@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  - name: Set up Docker Buildx
-    uses: docker/setup-buildx-action@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-  - name: Login to Docker Hub
-    uses: docker/login-action@v2
-    with:
-      username: ${{ secrets.DOCKERHUB_USERNAME }}  # Set this secret in GitHub
-      password: ${{ secrets.DOCKERHUB_TOKEN }}     # Set this secret in GitHub
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-  - name: Build and push Docker image
-    uses: docker/build-push-action@v4
-    id: build-and-push
-    with:
-      context: .
-      file: Dockerfile
-      push: true
-      tags: |
-        pierof/agisci-backend:latest   # Replace <DOCKERHUB_USERNAME> with your Docker Hub user
-        pierof/agisci-backend:${{ github.sha }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}  # definito in Settings → Secrets
+          password: ${{ secrets.DOCKERHUB_TOKEN }}     # definito in Settings → Secrets
 
-  - name: Show image digest
-    run: |
-      echo "Image published with digest: ${{ steps.build-and-push.outputs.digest }}"
-```
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        id: build-and-push
+        with:
+          context: .
+          file: Dockerfile
+          push: true
+          tags: |
+            pierof/agisci-backend:latest           # sostituisci tuoUsername con il tuo Docker Hub user
+            pierof/agisci-backend:${{ github.sha }}
+
+      - name: Show image digest
+        run: echo "Image published with digest: ${{ steps.build-and-push.outputs.digest }}"
