@@ -6,11 +6,6 @@ on:
 push:
 branches:
 \- main
-paths:
-\- "Dockerfile"
-\- "agisci\_scraper.js"
-\- ".env"
-\- ".github/workflows/\*\*"
 
 jobs:
 build-and-push:
