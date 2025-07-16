@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  backend:
+    build: .
+    container_name: agisci-backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./user-data:/usr/src/app/user-data
+    env_file:
+      - .env
