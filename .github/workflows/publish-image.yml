@@ -26,8 +26,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}  # definito in Settings → Secrets
-          password: ${{ secrets.DOCKERHUB_TOKEN }}     # definito in Settings → Secrets
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
@@ -37,8 +37,9 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            pierof/agisci-backend:latest           # sostituisci tuoUsername con il tuo Docker Hub user
+            pierof/agisci-backend:latest
             pierof/agisci-backend:${{ github.sha }}
 
       - name: Show image digest
-        run: echo "Image published with digest: ${{ steps.build-and-push.outputs.digest }}"
+        run: |
+          echo "Image published with digest: ${{ steps.build-and-push.outputs.digest }}"
