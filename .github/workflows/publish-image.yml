@@ -1,5 +1,3 @@
-# .github/workflows/publish-image.yml
-
 name: Publish Docker Image
 
 on:
@@ -35,9 +33,9 @@ steps:
       context: .
       file: Dockerfile
       push: true
-      tags: |
-        tuoUsername/agisci-backend:latest
-        tuoUsername/agisci-backend:${{ github.sha }}
+      tags:
+        - tuoUsername/agisci-backend:latest
+        - tuoUsername/agisci-backend:${{ github.sha }}
 
   - name: Show image digest
     run: |
