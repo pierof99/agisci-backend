@@ -1,15 +1,6 @@
 name: Publish Docker Image
-
-on:
-push:
-branches:
-\- main
-
-jobs:
-build-and-push:
-runs-on: ubuntu-latest
-
-```
+on: push: branches: - main
+jobs: build-and-push: runs-on: ubuntu-latest
 steps:
   - name: Checkout repository
     uses: actions/checkout@v3
@@ -34,10 +25,9 @@ steps:
       file: Dockerfile
       push: true
       tags:
-        - tuoUsername/agisci-backend:latest
-        - tuoUsername/agisci-backend:${{ github.sha }}
+        - "pierof/agisci-backend:latest"
+        - "pierof/agisci-backend:${{ github.sha }}"/agisci-backend:${{ github.sha }}
 
   - name: Show image digest
     run: |
       echo "Image published with digest: ${{ steps.build-and-push.outputs.digest }}"
-```
