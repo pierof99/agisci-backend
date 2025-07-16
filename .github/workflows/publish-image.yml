@@ -37,13 +37,9 @@ jobs:
           file: Dockerfile
           push: true
           tags: |
-            pierof/agisci-backend:latest   # v1
+            pierof/agisci-backend:latest
             pierof/agisci-backend:${{ github.sha }}
 
       - name: Show image digest
         run: |
           echo "Image published with digest: ${{ steps.build-and-push.outputs.digest }}"
-          
-          # End of workflow file
-
-          
