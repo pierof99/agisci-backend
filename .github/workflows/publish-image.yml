@@ -8,6 +8,7 @@ on:
       - Dockerfile
       - agisci_scraper.js
       - .env
+      - .github/workflows/** 
 
 jobs:
   build-and-push:
